@@ -1,0 +1,2 @@
+export const ACTION_BANDS=[{min:90,action:"STRONG BUY"},{min:75,action:"BUY"},{min:60,action:"SETUP"},{min:40,action:"WATCH"},{min:0,action:"AVOID"}];
+export function decide(framework,{regimeAdjustment=0,riskPenalty=0}={}){const adjusted=Math.max(0,Math.min(100,framework.scorePct+regimeAdjustment-riskPenalty));const band=ACTION_BANDS.find(x=>adjusted>=x.min)??ACTION_BANDS.at(-1);return {...framework,adjustedScore:Math.round(adjusted*10)/10,action:band.action};}
