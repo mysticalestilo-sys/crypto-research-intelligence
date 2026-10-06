@@ -1,0 +1,1 @@
+export function decide(framework,{regimeAdjustment=0,riskPenalty=0}={}){const base=framework.scorePct;const adjusted=Math.max(0,Math.min(100,base+regimeAdjustment-riskPenalty));const action=adjusted>=80?"BUY":adjusted>=65?"SETUP":adjusted>=50?"WATCH":"AVOID";return {...framework,adjustedScore:Math.round(adjusted*10)/10,action};}
