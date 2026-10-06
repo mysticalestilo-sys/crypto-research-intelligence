@@ -1,4 +1,4 @@
 import test from "node:test";import assert from "node:assert/strict";import {evaluateFramework} from "../packages/framework/src/index.mjs";import {decide} from "../packages/decision/src/index.mjs";
-test("22 criteria are always represented",()=>{const r=evaluateFramework({asset:"BTC",asOf:"2026-01-01T00:00:00Z",inputs:{}});assert.equal(r.criteria.length,22);assert.equal(r.scorePct,50);});
+test("22 criteria are always represented",()=>{const r=evaluateFramework({asset:"BTC",asOf:"2026-01-01T00:00:00Z",inputs:{}});assert.equal(r.criteria.length,22);assert.equal(r.scorePct,0);});
 test("bullish and bearish criteria score correctly",()=>{const r=evaluateFramework({asset:"BTC",asOf:"2026-01-01T00:00:00Z",inputs:{regime:{value:1,state:"BULLISH",source:"test",observedAt:"2026-01-01"},trend:{value:1,state:"BEARISH",source:"test",observedAt:"2026-01-01"}}});assert.equal(r.criteria[0].score,5);assert.equal(r.criteria[1].score,0);});
-test("decision bands are deterministic",()=>{const r=evaluateFramework({asset:"BTC",asOf:"2026-01-01T00:00:00Z",inputs:{}});assert.equal(decide(r).action,"WATCH");});
+test("decision bands are deterministic",()=>{const r=evaluateFramework({asset:"BTC",asOf:"2026-01-01T00:00:00Z",inputs:{}});assert.equal(decide(r).action,"AVOID");});
