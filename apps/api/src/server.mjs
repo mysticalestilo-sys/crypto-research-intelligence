@@ -1,8 +1,6 @@
-import http from "node:http";
-import {evaluateFramework} from "../../../packages/framework/src/index.mjs";
-import {decide} from "../../../packages/decision/src/index.mjs";
-const PORT=Number(process.env.PORT||8787);
-const demoInputs={regime:{value:"bull",state:"BULLISH",source:"demo",observedAt:new Date().toISOString()},trend:{value:1,state:"BULLISH",source:"demo",observedAt:new Date().toISOString()},momentum:{value:1,state:"BULLISH",source:"demo",observedAt:new Date().toISOString()},volume:{value:1,state:"NEUTRAL",source:"demo",observedAt:new Date().toISOString()}};
+import http from "node:http";import {readFile} from "node:fs/promises";import {evaluateFramework} from "../../../packages/framework/src/index.mjs";import {decide} from "../../../packages/decision/src/index.mjs";
+const PORT=Number(process.env.PORT||8787);const now=()=>new Date().toISOString();
+const demoInputs={regime:{value:"neutral",state:"NEUTRAL",source:"demo",observedAt:now()},trend:{value:1,state:"BULLISH",source:"demo",observedAt:now()},momentum:{value:1,state:"BULLISH",source:"demo",observedAt:now()},volume:{value:1,state:"NEUTRAL",source:"demo",observedAt:now()}};
 const json=(res,status,payload)=>{res.writeHead(status,{"content-type":"application/json","access-control-allow-origin":"*"});res.end(JSON.stringify(payload));};
-const server=http.createServer((req,res)=>{if(req.url==="/health")return json(res,200,{ok:true,service:"crypto-research-intelligence"});if(req.url==="/api/framework/demo")return json(res,200,decide(evaluateFramework({asset:"BTC",asOf:new Date().toISOString(),inputs:demoInputs})));return json(res,404,{error:"not_found"});});
+const server=http.createServer(async(req,res)=>{try{if(req.url==="/health")return json(res,200,{ok:true,service:"crypto-research-intelligence",time:now()});if(req.url==="/api/framework/demo")return json(res,200,decide(evaluateFramework({asset:"BTC",asOf:now(),inputs:demoInputs})));if(req.url==="/"){res.writeHead(200,{"content-type":"text/html"});return res.end(await readFile(new URL("../../dashboard/index.html",import.meta.url),"utf8"));}return json(res,404,{error:"not_found"});}catch(e){return json(res,500,{error:"internal_error",message:e.message});}});
 server.listen(PORT,()=>console.log("research API listening on "+PORT));
