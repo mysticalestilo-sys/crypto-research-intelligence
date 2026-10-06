@@ -1,0 +1,1 @@
+{"name":"crypto-research-intelligence","private":true,"version":"0.1.0","type":"module","scripts":{"test":"node --test","lint":"node --check packages/framework/src/index.mjs && node --check apps/api/src/server.mjs","dev:api":"node apps/api/src/server.mjs"}}
