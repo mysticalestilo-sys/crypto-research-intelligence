@@ -1,0 +1,4 @@
+export const FRAMEWORK_VERSION="0.1.0";
+export const RULES=[
+["P01","Market Regime","regime"],["P02","Trend / Structure","trend"],["P03","Momentum","momentum"],["P04","Volume / Liquidity","volume"],["P05","Derivatives","derivatives"],["P06","Open Interest","open_interest"],["P07","Funding","funding"],["P08","Long / Short Positioning","long_short"],["P09","Liquidations","liquidations"],["P10","Whale / Smart Money","whale"],["P11","Exchange Flows","exchange_flow"],["P12","On-chain Activity","onchain"],["P13","Realized / Unrealized P&L","realized_pnl"],["P14","Tokenomics / Supply","tokenomics"],["P15","Fundamental Traction","fundamental"],["P16","Revenue / Fees","revenue"],["P17","Ecosystem / TVL","tvl"],["P18","Narrative / Catalysts","narrative"],["P19","Social / Attention","social"],["P20","Sentiment","sentiment"],["P21","Risk / Security","risk"],["P22","Relative Strength / Rotation","rotation"]
+].map(([id,name,metric])=>({id,name,metric,weight:1,maxScore:5}));
